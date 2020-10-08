@@ -1,6 +1,5 @@
 #include <stdio.h>
-#include <ctype.h>
-#include <stdlib.h>
+
 
 int main(void) {
   char start='\0';
@@ -73,6 +72,7 @@ int main(void) {
 
       if(wincon!=2){//PRINTA E LÊ VALORES CASO O JOGADOR NÃO TENHA GANHADO
           do{//REPETE O LOOP ATÉ SER COLOCADO UM VALOR NUMERICO ACEITAVEL
+            wincon=0;
             for(l=1; l<10; l++){//ESTRUTURA DO JOGO
               if(l==1||l==4||l==7){//PRINTA O INDICADOR DE COLUNA E AS GRADES
                 if(l==1){
@@ -169,33 +169,32 @@ int main(void) {
             int xvert=1, scanqli=1, scanqlf=4, scanqci=1, scanqcf=4, reverse=0, aux=0, count=0;
             //**************************************************************************************VERIFICADOR DE QUADRADOS
             //Está bugado.
-            /*  for(xvert=1; xvert<10; xvert++){
+              for(xvert=1; xvert<10; xvert++){
                 count=0;
                 vert=scanqli;
                 aux=scanqli;
                 ult=scanqci;
-                for(reverse=0; reverse<8; reverse++){
-                  
-                  if(ult==scanqci+2){
-                    ult=scanqci;
-                    aux=aux+1;
-                  }
-                  for(l=aux; l<scanqlf; l++){
-                      for(c=scanqci+1; c<scanqcf; c++){
-                        if(sudoku[vert][ult][1]==sudoku[l][c][1]&&sudoku[vert][ult][1]>0){
-                        if(count==0){
+                
+                for(reverse=1; reverse<9; reverse++){
+                  for(l=scanqli; l<scanqlf; l++){
+                    for(c=ult+1; c<scanqcf; c++){
+                      if(sudoku[vert][ult][1]!=0){
+                        if(sudoku[vert][ult][1]==sudoku[l][c][1]){
+                          wincon=wincon-1;
                           printf("Há repetição no quadrado %d.\n", xvert);
                           count=1;
                         }
                       }
                     }
                   }
-                  ult=ult+1;
-                  vert=vert+1;
-                }
-                  
-                    
 
+                  if(reverse==3||reverse==6){
+                    vert=vert+1;
+                    ult=scanqci;
+                  }else{
+                    ult=ult+1;
+                  }
+                }
 
                 if(xvert==3||xvert==6){
                   scanqci=1;
@@ -205,7 +204,7 @@ int main(void) {
                   scanqcf=scanqcf+3;
                 }
               }
-           */
+           
           //********************************************************************************************************
         
 
@@ -232,7 +231,7 @@ int main(void) {
 
       }
       //********************************************************************************************************
-      if(wincon==3){//DECIDE SE O JOGO TERMINA OU REINICIA  COM BASE NA RESPOSTA DO JOGADOR
+      if(wincon==2){//DECIDE SE O JOGO TERMINA OU REINICIA  COM BASE NA RESPOSTA DO JOGADOR
         printf("//////////VOCÊ VENCEU!!//////////\n\nPressione ENTER para recomeçar.\n");
         start=getchar();
         if(start=='\n'){
